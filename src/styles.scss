@@ -1,1 +1,23 @@
-/* You can add global styles to this file, and also import other style files */
+@charset "utf-8";
+
+// Import a Google Font
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
+
+
+$grey-dark: #424C55;
+$grey-light: #ededed;
+$primary: #00bbf9;
+$link: #1a0a4a;
+$success: #06d6a0;
+$danger: #d90429;
+$widescreen-enabled: false;
+$fullhd-enabled: false;
+$warning: #fb5607;
+// Update some of Bulma's component variables
+$body-background-color: $grey-light;
+$control-border-width: 2px;
+$input-border-color: transparent;
+$input-shadow: none;
+
+// Import only what you need from Bulma
+@import "../node_modules/bulma/bulma.sass";

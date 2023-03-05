@@ -1,0 +1,47 @@
+<section class="hero">
+    <div class="hero-body">
+        <div class="container">
+            <form action="" class="box" (submit)="submitForm($event)">
+                <div class="field">
+                    <label class="label">Email</label>
+                    <div class="control">
+                        <input
+                            type="email"
+                            placeholder="e.g. bobsmith@gmail.com"
+                            [(ngModel)]="userData.email"
+                            class="input"
+                            name="email"
+                            required
+                        />
+                        <span class="icon is-small is-left">
+                            <i class="fa fa-envelope"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Password</label>
+                    <div class="control">
+                        <input
+                            [(ngModel)]="userData.password"
+                            type="password"
+                            placeholder="*******"
+                            class="input"
+                            name="password"
+                            required
+                        />
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="checkbox">
+                        <input type="checkbox" [(ngModel)]="userData.rememberMe" name="rememberMe"/>
+                        Remember me
+                    </label>
+                </div>
+                <div class="field">
+                    <button class="button is-success">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{{ userData | json}}
