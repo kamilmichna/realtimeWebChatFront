@@ -18,6 +18,9 @@ export class NotificationsContainerComponent implements OnInit {
     ngOnInit(): void {
         this.notificationsService.notification$.subscribe(
             (notification: INotification) => {
+                if (this.notifications.length > 5) {
+                    this.notifications.shift();
+                }
                 this.notifications.push(notification);
             }
         );

@@ -1,0 +1,23 @@
+.box {
+    margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    height: 80px;
+    align-items: center;
+    padding: 10px;
+    grid-gap: 20px;
+    transition-duration: 0.25s;
+    &:hover{
+        background-color: #ededed;
+        cursor: pointer;
+    }
+    img {
+        border-radius: 50%;
+        height: 50px;
+        width: 50px;
+    }
+    .chat-name {
+        font-size: 1.25em;
+        font-weight: 500;
+    }
+}

@@ -13,13 +13,16 @@ export interface INotification {
 })
 export class NotificationService {
     notification$ = new Subject<INotification>();
+    notifications: any = [];
     constructor() {}
 
     emitNotification(description: string, type: 'success' | 'info' | 'warning') {
-        this.notification$.next({
+        const notification = {
             id: nanoid(),
             description,
             type
-        });
+        };
+        
+        this.notification$.next(notification);
     }
 }
