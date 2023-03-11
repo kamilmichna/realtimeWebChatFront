@@ -20,6 +20,7 @@
     "@angular/router": "~13.3.0",
     "animate.css": "^4.1.1",
     "bulma": "^0.9.4",
+    "fontawesome-free": "^1.0.4",
     "nanoid": "^4.0.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

@@ -1,3 +1,25 @@
 .box {
     height: 100%;
+    display: grid;
+    grid-template-rows: 1fr 50px;
+    grid-gap: 20px;
+}
+
+.message-container {
+    overflow-y: scroll;
+    padding-right: 50px;
+    padding-left: 30px;
+}
+
+.input-container {
+    display: grid;
+    grid-template-columns: 1fr 50px;
+    grid-gap: 20px; 
+    .button:hover{
+        background-color: #03a87c;
+        transition-duration: 0.5s;
+    } 
+}
+.input {
+    border: 1px solid #323232;
 }

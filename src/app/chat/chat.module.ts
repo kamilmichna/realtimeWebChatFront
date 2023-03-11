@@ -4,6 +4,7 @@ import { UsersListComponent } from './users-list/users-list.component';
 import { ControlsBoxComponent } from './controls-box/controls-box.component';
 import { ChatComponent } from './chat/chat.component';
 import { ChatBoxComponent } from './chat-box/chat-box.component';
+import { MessageBoxComponent } from './message-box/message-box.component';
 
 
 
@@ -12,7 +13,8 @@ import { ChatBoxComponent } from './chat-box/chat-box.component';
     UsersListComponent,
     ControlsBoxComponent,
     ChatComponent,
-    ChatBoxComponent
+    ChatBoxComponent,
+    MessageBoxComponent
   ],
   exports: [
     UsersListComponent,
