@@ -14,22 +14,17 @@ import { ChatModule } from './chat/chat.module';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginPageComponent,
-    RegisterPageComponent,
-    MainPageComponent,
-    HeaderComponent,
-    LayoutComponent,
-    NotificationsContainerComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ChatModule,
-    FormsModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        LoginPageComponent,
+        RegisterPageComponent,
+        MainPageComponent,
+        HeaderComponent,
+        LayoutComponent,
+        NotificationsContainerComponent,
+    ],
+    imports: [BrowserModule, AppRoutingModule, ChatModule, FormsModule],
+    providers: [],
+    bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

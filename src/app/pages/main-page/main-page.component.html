@@ -1,5 +1,12 @@
 <div class="main-container">
-  <app-users-list class="users-box"></app-users-list>
-  <!-- <app-controls-box class="controls-box"></app-controls-box> -->
-  <app-chat class="chat-box"></app-chat>
+    <app-users-list
+        [chats]="allChats$ | async"
+        [selectedChatId]="selectedChatId$ | async"
+        (chatClicked)="selectChat($event)"
+        class="users-box"
+    ></app-users-list>
+    <app-chat
+        class="chat-box"
+        [selectedChat]="selectedChat$ | async"
+    ></app-chat>
 </div>
