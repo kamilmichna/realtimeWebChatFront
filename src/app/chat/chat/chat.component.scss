@@ -5,8 +5,6 @@
     grid-gap: 20px;
 }
 
-.chat-header {
-}
 .message-container {
     overflow-y: scroll;
     min-height: 70vh;
@@ -28,4 +26,20 @@
 }
 .input {
     border: 1px solid #323232;
+}
+
+.overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 95vh;
+    grid-row: 1/4;
+    height: 100%;
+}
+
+.overlay-no-messages {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
 }

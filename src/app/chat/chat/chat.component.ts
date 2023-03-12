@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
-import { Chat, ChatService } from '../chat.service';
+import { Chat, ChatService, Message } from '../chat.service';
 
 @Component({
     selector: 'app-chat',
@@ -9,7 +8,13 @@ import { Chat, ChatService } from '../chat.service';
 })
 export class ChatComponent implements OnInit {
     @Input() selectedChat: Chat | null = null;
-    constructor() {}
+    messages: Message[] | null = null;
+
+    constructor(private chatSvc: ChatService) {}
 
     ngOnInit(): void {}
+
+    ngOnChanges() {
+        this.messages = this.chatSvc.getMessagesInChat();
+    }
 }

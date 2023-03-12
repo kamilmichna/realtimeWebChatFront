@@ -51,3 +51,12 @@ p.message-content {
     font-size: 1.1rem;
     font-weight: 500;
 }
+
+.message-state {
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    right: 5px;
+    top: 5px;
+    border-radius: 50%;
+}

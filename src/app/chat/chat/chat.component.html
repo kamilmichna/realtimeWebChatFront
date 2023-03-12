@@ -1,23 +1,35 @@
 <div class="box">
-    <div class="chat-header">
-        <p class="title">{{ selectedChat?.users }}</p>
-    </div>
-    <div class="message-container">
-        <app-message-box></app-message-box>
-        <app-message-box [isOwned]="true"></app-message-box>
-        <app-message-box></app-message-box>
-        <app-message-box></app-message-box>
-        <app-message-box></app-message-box>
-        <app-message-box></app-message-box>
-        <app-message-box></app-message-box>
-        <app-message-box></app-message-box>
-    </div>
-    <div class="input-container">
-        <input type="text" class="input" />
-        <button class="button is-success">
-            <span class="icon">
-                <i class="fas fa-paper-plane"></i>
-            </span>
-        </button>
-    </div>
+    <ng-container *ngIf="selectedChat">
+        <div class="chat-header">
+            <p class="title">{{ selectedChat?.users }}</p>
+        </div>
+        <ng-container *ngIf="messages?.length">
+            <div class="message-container">
+                <app-message-box
+                    *ngFor="let message of messages"
+                    [message]="message"
+                ></app-message-box>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="!messages?.length">
+            <div
+                class="overlay-no-messages title has-text-weight-bold is-size-1 has-text-grey"
+            >
+                No messages in chat
+            </div>
+        </ng-container>
+        <div class="input-container">
+            <input type="text" class="input" />
+            <button class="button is-success">
+                <span class="icon">
+                    <i class="fas fa-paper-plane"></i>
+                </span>
+            </button>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="!selectedChat">
+        <div class="overlay title has-text-weight-bold is-size-1 has-text-grey">
+            No chat selected yet!
+        </div>
+    </ng-container>
 </div>

@@ -5,6 +5,11 @@ import { of } from 'rxjs';
     providedIn: 'root',
 })
 export class AuthService {
-    loggedIn$ = of(false)
+    loggedIn$ = of(false);
     constructor() {}
+
+    getUserName() {
+        // Mock
+        return 'You';
+    }
 }

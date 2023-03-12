@@ -8,23 +8,16 @@ import { Chat, ChatService } from 'src/app/chat/chat.service';
     styleUrls: ['./main-page.component.scss'],
 })
 export class MainPageComponent implements OnInit {
-    allChats$: Observable<Chat[]> = this.chatSvc.getAllUserChats();
-    selectedChatId$ = new Subject<string>();
+    allChats$: Observable<Chat[]> = this.chatSvc.allChats$;
+    selectedChatId$ = this.chatSvc.selectedChatId$;
 
-    selectedChat$ = combineLatest([this.allChats$, this.selectedChatId$]).pipe(
-        map(([chats, selectedChatId]) => {
-            if (!selectedChatId) {
-                return chats[0];
-            }
-            return chats.find((chat) => chat.id === selectedChatId) || null;
-        })
-    );
+    selectedChat$ = this.chatSvc.selectedChat$;
 
     constructor(private chatSvc: ChatService) {}
 
     ngOnInit(): void {}
 
     selectChat(chatId: string) {
-        this.selectedChatId$.next(chatId);
+        this.chatSvc.selectedChatId$.next(chatId);
     }
 }
