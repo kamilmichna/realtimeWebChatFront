@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { APP_CONF_TOKEN, ICONFIG } from 'src/app/config';
 import { NotificationService } from 'src/app/services/notification.service';
-import { z } from "zod";
-
+import { z } from 'zod';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AuthService } from 'src/app/services/auth.service';
 @Component({
     selector: 'app-login-page',
     templateUrl: './login-page.component.html',
@@ -9,28 +11,31 @@ import { z } from "zod";
 })
 export class LoginPageComponent implements OnInit {
     userData = {
-        email: '',
+        username: '',
         password: '',
-        rememberMe: false
-    }
-    constructor(private notificationService: NotificationService) {}
-
+    };
+    constructor(
+        private notificationService: NotificationService,
+        private auth: AuthService
+    ) {}
 
     validateUserData() {
         const schema = z.object({
-            email: z.string().email(),
-            password: z.string()?.min(6),
-            rememberMe: z.boolean()
-        })
+            username: z.string().min(1),
+            password: z.string().min(1),
+        });
 
         try {
             schema.parse(this.userData);
             return true;
         } catch (errorField: any) {
-            if (Array.isArray(errorField?.issues)){
-                errorField?.issues.forEach((error: { message: any; }) => {
-                    this.notificationService.emitNotification(error.message, 'warning');
-                })  
+            if (Array.isArray(errorField?.issues)) {
+                errorField?.issues.forEach((error: { message: any }) => {
+                    this.notificationService.emitNotification(
+                        error.message,
+                        'warning'
+                    );
+                });
             }
             return false;
         }
@@ -38,10 +43,15 @@ export class LoginPageComponent implements OnInit {
 
     submitForm(e: Event) {
         e.preventDefault();
-        if (this.validateUserData()){};
+        if (this.validateUserData()) {
+            this.auth.setAuthData(this.userData);
+
+            const data = this.auth.authenticateUser(this.userData);
+            console.log(data);
+        }
     }
 
-    ngOnChanges(){
+    ngOnChanges() {
         this.validateUserData();
     }
     ngOnInit(): void {}

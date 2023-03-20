@@ -8,7 +8,7 @@
                         <input
                             type="email"
                             placeholder="e.g. bobsmith@gmail.com"
-                            [(ngModel)]="userData.email"
+                            [(ngModel)]="userData.username"
                             class="input"
                             name="email"
                             required
@@ -27,12 +27,6 @@
                             required
                         />
                     </div>
-                </div>
-                <div class="field">
-                    <label class="checkbox">
-                        <input type="checkbox" [(ngModel)]="userData.rememberMe" name="rememberMe"/>
-                        Remember me
-                    </label>
                 </div>
                 <div class="field">
                     <button class="button is-success">Login</button>

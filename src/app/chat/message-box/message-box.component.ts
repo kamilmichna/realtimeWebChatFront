@@ -20,6 +20,6 @@ export class MessageBoxComponent implements OnInit {
 
     isMessageOwnedByUser() {
         if (!this.message) return false;
-        return this.authService.getUserName() === this.message?.sender;
+        return this.authService.authData?.username === this.message?.sender;
     }
 }

@@ -9,9 +9,11 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
 import { HeaderComponent } from './ui/header/header.component';
 import { LayoutComponent } from './ui/layout/layout.component';
 import { NotificationsContainerComponent } from './ui/notifications-container/notifications-container.component';
-import { UsersListComponent } from './chat/users-list/users-list.component';
 import { ChatModule } from './chat/chat.module';
 import { FormsModule } from '@angular/forms';
+import { APP_CONF_TOKEN, CONFIG } from './config';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './utils/auth-interceptor';
 
 @NgModule({
     declarations: [
@@ -23,8 +25,24 @@ import { FormsModule } from '@angular/forms';
         LayoutComponent,
         NotificationsContainerComponent,
     ],
-    imports: [BrowserModule, AppRoutingModule, ChatModule, FormsModule],
-    providers: [],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ChatModule,
+        FormsModule,
+        HttpClientModule,
+    ],
+    providers: [
+        {
+            provide: APP_CONF_TOKEN,
+            useValue: CONFIG,
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true,
+        },
+    ],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

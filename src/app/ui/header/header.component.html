@@ -1,38 +1,42 @@
 <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-     <h1 class="title is-4">ChatLobby</h1>
-  
-      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </a>
+        <h1 class="title is-4">ChatLobby</h1>
+
+        <a
+            role="button"
+            class="navbar-burger"
+            aria-label="menu"
+            aria-expanded="false"
+            data-target="navbarBasicExample"
+        >
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
     </div>
-  
+
     <div *ngIf="isLoggedIn$ | async" class="navbar-menu">
-      <div class="navbar-end">
-        <div class="navbar-item">
-          <div class="buttons">
-            <a class="button is-light">
-              Log out
-            </a>
-          </div>
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <div class="buttons">
+                    <a class="button is-light" (click)="onLogoutClicked()">
+                        Log out
+                    </a>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
 
     <div *ngIf="!(isLoggedIn$ | async)" class="navbar-menu">
         <div class="navbar-end">
-          <div class="navbar-item">
-            <div class="buttons">
-              <a class="button is-primary" routerLink="register">
-                <strong>Sign up</strong>
-              </a>
-              <a class="button is-light" routerLink="login">
-                Log in
-              </a>
+            <div class="navbar-item">
+                <div class="buttons">
+                    <a class="button is-primary" routerLink="register">
+                        <strong>Sign up</strong>
+                    </a>
+                    <a class="button is-light" routerLink="login"> Log in </a>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-  </nav>
+    </div>
+</nav>
