@@ -1,31 +1,50 @@
 <section class="hero">
     <div class="hero-body">
-      <div class="container">
-          <form action="" class="box">
-              <div class="field">
-                <label for="" class="label">Email</label>
-                <div class="control">
-                  <input type="email" placeholder="e.g. bobsmith@gmail.com" class="input" required>
+        <div class="container">
+            <form action="" class="box" (submit)="submitForm($event)">
+                <div class="field">
+                    <label for="" class="label">Email</label>
+                    <div class="control">
+                        <input
+                            [(ngModel)]="userData.username"
+                            type="text"
+                            placeholder="username"
+                            class="input"
+                            name="username"
+                            required
+                        />
+                    </div>
                 </div>
-              </div>
-              <div class="field">
-                <label for="" class="label">Password</label>
-                <div class="control">
-                  <input type="password" placeholder="*******" class="input" required>
+                <div class="field">
+                    <label for="" class="label">Password</label>
+                    <div class="control">
+                        <input
+                            [(ngModel)]="userData.password"
+                            type="password"
+                            placeholder="*******"
+                            class="input"
+                            name="password"
+                            required
+                        />
+                    </div>
                 </div>
-              </div>
-              <div class="field">
-                <label for="" class="label">Password repeat</label>
-                <div class="control">
-                  <input type="password" placeholder="*******" class="input" required>
+                <div class="field">
+                    <label for="" class="label">Password repeat</label>
+                    <div class="control">
+                        <input
+                            [(ngModel)]="userData.passwordRepeat"
+                            type="password"
+                            placeholder="*******"
+                            class="input"
+                            name="passwordRepeat"
+                            required
+                        />
+                    </div>
                 </div>
-              </div>
-              <div class="field">
-                <button class="button is-success">
-                  Register
-                </button>
-              </div>
+                <div class="field">
+                    <button class="button is-success">Register</button>
+                </div>
             </form>
-      </div>
+        </div>
     </div>
-  </section>
+</section>
