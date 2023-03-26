@@ -5,7 +5,7 @@ export interface ICONFIG {
 }
 
 export const CONFIG = {
-    BACKEND_PATH: 'http://localhost:8080',
+    BACKEND_PATH: 'http://localhost:8081',
 };
 
 export const APP_CONF_TOKEN = new InjectionToken<ICONFIG>('APP_CONFIG');

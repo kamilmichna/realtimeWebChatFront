@@ -48,7 +48,7 @@ export class AuthService {
     }
 
     requestAuth() {
-        return this.http.get(this.config.BACKEND_PATH + '/user');
+        return this.http.get(this.config.BACKEND_PATH + '/users/login');
     }
 
     async isUserAuthenticated() {
@@ -91,21 +91,18 @@ export class AuthService {
     }
 
     async registerUser(authData: AuthData) {
-        try {
-            const requestBody = {
-                username: authData.username,
-                password: authData.password,
-                enabled: true,
-                messages: [],
-            };
-            this.http
-                .post(this.config.BACKEND_PATH + '/users/register', requestBody)
-                .subscribe({
-                    next: () => console.log('NEXt'),
-                    error: (err) => console.log('ERR', err),
-                });
-        } catch (err) {
-            console.log(err);
-        }
+        const requestBody = {
+            username: authData.username,
+            password: `{noop}${authData.password}`,
+            enabled: true,
+            messages: [],
+        };
+        this.http
+            .post(this.config.BACKEND_PATH + '/users/register', requestBody)
+            .subscribe({
+                next: () => Swal.fire('Succesfully registered'),
+                error: (_) =>
+                    Swal.fire('Can`t register - username already taken'),
+            });
     }
 }

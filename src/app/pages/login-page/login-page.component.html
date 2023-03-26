@@ -3,14 +3,14 @@
         <div class="container">
             <form action="" class="box" (submit)="submitForm($event)">
                 <div class="field">
-                    <label class="label">Email</label>
+                    <label class="label">Username</label>
                     <div class="control">
                         <input
-                            type="email"
+                            type="text"
                             placeholder="username"
                             [(ngModel)]="userData.username"
                             class="input"
-                            name="email"
+                            name="username"
                             required
                         />
                     </div>
