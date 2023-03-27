@@ -3,9 +3,11 @@ import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {
     BehaviorSubject,
+    filter,
     first,
     firstValueFrom,
     last,
+    map,
     of,
     Subject,
 } from 'rxjs';
@@ -104,5 +106,12 @@ export class AuthService {
                 error: (_) =>
                     Swal.fire('Can`t register - username already taken'),
             });
+    }
+
+    getAllUsers() {
+        return this.http.get(this.config.BACKEND_PATH + '/users').pipe(
+            filter((data) => Array.isArray(data) && data.length > 0),
+            map((list) => (list as Array<any>)?.map((item) => item.username))
+        );
     }
 }

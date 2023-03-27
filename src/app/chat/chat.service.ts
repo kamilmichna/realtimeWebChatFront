@@ -1,6 +1,8 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Inject, Injectable } from '@angular/core';
 import { nanoid } from 'nanoid';
-import { combineLatest, map, Observable, of, Subject } from 'rxjs';
+import { combineLatest, filter, map, Observable, of, Subject } from 'rxjs';
+import { APP_CONF_TOKEN, ICONFIG } from '../config';
 
 export interface Chat {
     id: string;
@@ -33,34 +35,32 @@ export class ChatService {
             return chats.find((chat) => chat.id === selectedChatId) || null;
         })
     );
-    constructor() {}
+
+    constructor(
+        private http: HttpClient,
+        @Inject(APP_CONF_TOKEN) private config: ICONFIG
+    ) {}
 
     getAllUserChats(): Observable<Chat[]> {
-        // MOCK
-        return of([
-            {
-                id: nanoid(),
-                users: ['Jan Kowalski'],
-                lastMessage: {
-                    sender: 'Jan Kowalski',
-                    content: 'Co u Ciebie',
-                    timestamp: new Date(),
-                    state: 'VIEWED',
-                },
-                lastMessageDate: new Date(),
-            },
-            {
-                id: nanoid(),
-                users: ['Jan Nowak'],
-                lastMessage: {
-                    sender: 'Jan Nowak',
-                    content: 'Co słychać',
-                    timestamp: new Date(),
-                    state: 'SEND',
-                },
-                lastMessageDate: new Date(),
-            },
-        ]);
+        return this.http.get(this.config.BACKEND_PATH + '/chats').pipe(
+            filter((data) => Array.isArray(data) && data.length > 0),
+            map((list) =>
+                (list as Array<any>)?.map((item) => {
+                    console.log(item);
+                    return {
+                        id: nanoid(),
+                        users: ['Jan Kowalski'],
+                        lastMessage: {
+                            sender: 'Jan Kowalski',
+                            content: 'Co u Ciebie',
+                            timestamp: new Date(),
+                            state: 'VIEWED',
+                        },
+                        lastMessageDate: new Date(),
+                    };
+                })
+            )
+        );
     }
 
     getMessagesInChat(): Message[] {

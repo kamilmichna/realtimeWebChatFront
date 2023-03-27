@@ -1,8 +1,11 @@
-<ng-container *ngIf="chats && chats.length">
+<ng-container>
     <div class="box">
         <div class="list-header">
             <h2 class="is-size-4 has-text-weight-semibold">Your chats</h2>
-            <button class="button is-primary hasShadow">
+            <button
+                class="button is-primary hasShadow"
+                (click)="openNewChatModal()"
+            >
                 <p>Add new</p>
                 <span class="icon">
                     <i class="fas fa-plus"></i>
