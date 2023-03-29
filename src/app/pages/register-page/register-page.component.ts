@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { AuthService } from 'src/app/services/auth.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { z } from 'zod';
 
+@UntilDestroy()
 @Component({
     selector: 'app-register-page',
     templateUrl: './register-page.component.html',

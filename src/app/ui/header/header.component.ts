@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { AuthService } from 'src/app/services/auth.service';
 
+@UntilDestroy()
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
@@ -8,7 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class HeaderComponent implements OnInit {
     isLoggedIn$ = this.authService.loggedIn$;
-
+    authData$ = this.authService.authData$;
     constructor(private authService: AuthService) {}
 
     ngOnInit(): void {}

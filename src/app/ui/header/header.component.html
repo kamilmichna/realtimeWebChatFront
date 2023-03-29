@@ -18,6 +18,14 @@
     <div *ngIf="isLoggedIn$ | async" class="navbar-menu">
         <div class="navbar-end">
             <div class="navbar-item">
+                <p class="mr-2">{{ (authData$ | async)?.username }}</p>
+                <img
+                    class="mr-4"
+                    src="https://api.dicebear.com/6.x/fun-emoji/svg?seed={{
+                        (authData$ | async)?.username
+                    }}"
+                    alt=""
+                />
                 <div class="buttons">
                     <a class="button is-light" (click)="onLogoutClicked()">
                         Log out

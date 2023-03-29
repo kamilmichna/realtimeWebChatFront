@@ -1,7 +1,14 @@
 <div class="box">
     <ng-container *ngIf="selectedChat">
         <div class="chat-header">
-            <p class="title">{{ selectedChat?.users }}</p>
+            <p class="title">{{ selectedChat?.user?.username }}</p>
+            <img
+                class="ml-4"
+                src="https://api.dicebear.com/6.x/fun-emoji/svg?seed={{
+                    selectedChat?.user?.username
+                }}"
+                alt=""
+            />
         </div>
         <ng-container *ngIf="messages?.length">
             <div class="message-container">

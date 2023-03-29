@@ -3,10 +3,11 @@ import { Inject, Injectable } from '@angular/core';
 import { nanoid } from 'nanoid';
 import { combineLatest, filter, map, Observable, of, Subject } from 'rxjs';
 import { APP_CONF_TOKEN, ICONFIG } from '../config';
+import { AuthService } from '../services/auth.service';
 
 export interface Chat {
     id: string;
-    users: string[];
+    user: any;
     lastMessage: Message;
     lastMessageDate: Date;
 }
@@ -38,7 +39,8 @@ export class ChatService {
 
     constructor(
         private http: HttpClient,
-        @Inject(APP_CONF_TOKEN) private config: ICONFIG
+        @Inject(APP_CONF_TOKEN) private config: ICONFIG,
+        private authService: AuthService
     ) {}
 
     getAllUserChats(): Observable<Chat[]> {
@@ -46,10 +48,13 @@ export class ChatService {
             filter((data) => Array.isArray(data) && data.length > 0),
             map((list) =>
                 (list as Array<any>)?.map((item) => {
-                    console.log(item);
                     return {
-                        id: nanoid(),
-                        users: ['Jan Kowalski'],
+                        id: item.id,
+                        user: item.users?.find(
+                            (user: any) =>
+                                user.username !==
+                                this.authService.authData?.username
+                        ),
                         lastMessage: {
                             sender: 'Jan Kowalski',
                             content: 'Co u Ciebie',
@@ -91,5 +96,23 @@ export class ChatService {
                 state: 'SENDING',
             },
         ];
+    }
+
+    createNewChat(userId: string, secondUserId: string) {
+        return this.http
+            .post(this.config.BACKEND_PATH + '/chats', {
+                users: [
+                    {
+                        username: userId,
+                    },
+                    {
+                        username: secondUserId,
+                    },
+                ],
+            })
+            .subscribe({
+                next: () => console.log('DATA'),
+                error: (err) => err,
+            });
     }
 }

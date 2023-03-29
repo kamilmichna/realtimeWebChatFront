@@ -25,6 +25,7 @@ interface AuthData {
 export class AuthService {
     loggedIn$ = new BehaviorSubject(false);
     authData: AuthData | null = null;
+    authData$ = new BehaviorSubject(this.authData);
     isAuthenticated = false;
     constructor(
         @Inject(APP_CONF_TOKEN) private config: ICONFIG,
@@ -35,7 +36,7 @@ export class AuthService {
             const data = localStorage.getItem('authData');
             if (data?.length) {
                 try {
-                    this.authData = JSON.parse(data);
+                    this.setAuthData(JSON.parse(data));
                 } catch (_) {}
             }
         }
@@ -43,6 +44,7 @@ export class AuthService {
 
     setAuthData(authData: AuthData) {
         this.authData = authData;
+        this.authData$.next(authData);
     }
 
     saveAuthDataToLocalStorage() {

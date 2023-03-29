@@ -1,9 +1,10 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { APP_CONF_TOKEN, ICONFIG } from 'src/app/config';
+import { Component, OnInit } from '@angular/core';
 import { NotificationService } from 'src/app/services/notification.service';
 import { z } from 'zod';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth.service';
+import { UntilDestroy } from '@ngneat/until-destroy';
+
+@UntilDestroy()
 @Component({
     selector: 'app-login-page',
     templateUrl: './login-page.component.html',
@@ -11,6 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginPageComponent implements OnInit {
     userData = {
+        id: '',
         username: '',
         password: '',
     };

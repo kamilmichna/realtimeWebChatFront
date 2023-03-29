@@ -43,3 +43,13 @@
     align-items: center;
     min-height: 70vh;
 }
+
+.chat-header {
+    display: flex;
+}
+
+.chat-header img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
