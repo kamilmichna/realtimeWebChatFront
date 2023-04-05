@@ -26,8 +26,8 @@
             </div>
         </ng-container>
         <div class="input-container">
-            <input type="text" class="input" />
-            <button class="button is-success">
+            <input type="text" class="input" [formControl]="messageContent" />
+            <button class="button is-success" (click)="sendMessage()">
                 <span class="icon">
                     <i class="fas fa-paper-plane"></i>
                 </span>

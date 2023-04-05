@@ -3,10 +3,11 @@
         <div class="box">
             <p class="message-username">{{ message.sender }}</p>
             <p class="message-content">{{ message.content }}</p>
-            <div class="message-state" [ngSwitch]="message.state">
+            <p>Sent at: {{ message.sendTime | date : "medium" }}</p>
+            <!-- <div class="message-state" [ngSwitch]="message.state">
                 <i class="fas fa-check-circle" *ngSwitchCase="'VIEWED'"></i>
                 <i class="far fa-check-circle" *ngSwitchCase="'SEND'"></i>
-            </div>
+            </div> -->
             <div class="tail"></div>
         </div>
     </div>

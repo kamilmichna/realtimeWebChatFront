@@ -7,11 +7,11 @@
 }
 
 .box:not(.isOwned) {
-    background-color: #00bbf9;
+    background-color: #68e1d3;
 }
 
 .isOwned > .box {
-    background-color: #06d6a0;
+    background-color: #68e1d3;
 }
 
 .tail {
@@ -19,12 +19,12 @@
     height: 0;
     border-left: 20px solid transparent;
     border-right: 20px solid transparent;
-    border-top: 50px solid #00bbf9;
+    border-top: 50px solid #68e1d3;
     position: absolute;
 }
 
 .isOwned .tail {
-    border-top: 50px solid #06d6a0;
+    border-top: 50px solid #68e1d3;
 }
 
 .message-wrapper {

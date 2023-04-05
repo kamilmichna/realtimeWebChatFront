@@ -47,9 +47,7 @@ export class LoginPageComponent implements OnInit {
         e.preventDefault();
         if (this.validateUserData()) {
             this.auth.setAuthData(this.userData);
-
-            const data = this.auth.authenticateUser(this.userData);
-            console.log(data);
+            this.auth.authenticateUser(this.userData);
         }
     }
 

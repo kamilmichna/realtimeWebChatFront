@@ -99,7 +99,6 @@ export class AuthService {
             username: authData.username,
             password: `{noop}${authData.password}`,
             enabled: true,
-            messages: [],
         };
         this.http
             .post(this.config.BACKEND_PATH + '/users/register', requestBody)
@@ -113,7 +112,9 @@ export class AuthService {
     getAllUsers() {
         return this.http.get(this.config.BACKEND_PATH + '/users').pipe(
             filter((data) => Array.isArray(data) && data.length > 0),
-            map((list) => (list as Array<any>)?.map((item) => item.username))
+            map((list) =>
+                (list as Array<any>)?.map((item) => item.username || item)
+            )
         );
     }
 }

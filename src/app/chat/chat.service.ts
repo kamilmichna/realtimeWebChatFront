@@ -1,24 +1,32 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { nanoid } from 'nanoid';
-import { combineLatest, filter, map, Observable, of, Subject } from 'rxjs';
+import {
+    combineLatest,
+    filter,
+    map,
+    Observable,
+    of,
+    share,
+    Subject,
+    tap,
+} from 'rxjs';
 import { APP_CONF_TOKEN, ICONFIG } from '../config';
 import { AuthService } from '../services/auth.service';
 
 export interface Chat {
     id: string;
     user: any;
-    lastMessage: Message;
+    lastMessage: any;
     lastMessageDate: Date;
 }
 
 type MessageState = 'SENDING' | 'SEND' | 'VIEWED';
 
 export interface Message {
-    sender: string;
     content: string;
-    timestamp: Date;
-    state: MessageState;
+    sender: string;
+    sendTime: string;
 }
 
 @Injectable({
@@ -27,7 +35,6 @@ export interface Message {
 export class ChatService {
     allChats$: Observable<Chat[]> = this.getAllUserChats();
     selectedChatId$ = new Subject<string>();
-
     selectedChat$ = combineLatest([this.allChats$, this.selectedChatId$]).pipe(
         map(([chats, selectedChatId]) => {
             if (!selectedChatId) {
@@ -68,37 +75,23 @@ export class ChatService {
         );
     }
 
-    getMessagesInChat(): Message[] {
-        // MOCK
-        return [
-            {
-                sender: 'Jan Kowalski',
-                content: 'Wiadomość 1',
-                timestamp: new Date(),
-                state: 'VIEWED',
-            },
-            {
-                sender: 'Jan Kowalski',
-                content: 'Wiadomość 2',
-                timestamp: new Date(),
-                state: 'VIEWED',
-            },
-            {
-                sender: 'You',
-                content: 'Wiadomość 3',
-                timestamp: new Date(),
-                state: 'VIEWED',
-            },
-            {
-                sender: 'Jan Kowalski',
-                content: 'Wiadomość 4',
-                timestamp: new Date(),
-                state: 'SENDING',
-            },
-        ];
+    getMessagesInChat(): Observable<Message[]> {
+        return this.http.get(this.config.BACKEND_PATH + '/messages').pipe(
+            map((messages) => {
+                return (messages as Array<any>)?.map((item) => {
+                    const { user: user, ...data } = item;
+                    return {
+                        ...data,
+                        sender: user.username,
+                    };
+                });
+            }),
+            tap((data) => console.log(data))
+        );
     }
 
     createNewChat(userId: string, secondUserId: string) {
+        if (!userId || !secondUserId) return;
         return this.http
             .post(this.config.BACKEND_PATH + '/chats', {
                 users: [
@@ -111,8 +104,14 @@ export class ChatService {
                 ],
             })
             .subscribe({
-                next: () => console.log('DATA'),
+                next: () => console.log('CHAT CREATED'),
                 error: (err) => err,
             });
+    }
+
+    sendMessageToChat(messageContent: string) {
+        return this.http.post(this.config.BACKEND_PATH + '/messages', {
+            content: messageContent,
+        });
     }
 }

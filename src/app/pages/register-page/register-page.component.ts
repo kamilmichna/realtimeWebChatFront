@@ -24,8 +24,7 @@ export class RegisterPageComponent implements OnInit {
     submitForm(e: Event) {
         e.preventDefault();
         if (this.validateUserData()) {
-            const data = this.auth.registerUser(this.userData);
-            console.log(data);
+            this.auth.registerUser(this.userData);
         }
     }
 
@@ -39,7 +38,6 @@ export class RegisterPageComponent implements OnInit {
             .refine((data) => data.password === data.passwordRepeat, {
                 message: 'Passwords don`t match',
             });
-        console.log(this.userData);
         try {
             schema.parse(this.userData);
             return true;

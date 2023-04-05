@@ -4,6 +4,7 @@ import { UsersListComponent } from './users-list/users-list.component';
 import { ChatComponent } from './chat/chat.component';
 import { ChatBoxComponent } from './chat-box/chat-box.component';
 import { MessageBoxComponent } from './message-box/message-box.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -13,6 +14,6 @@ import { MessageBoxComponent } from './message-box/message-box.component';
         MessageBoxComponent,
     ],
     exports: [UsersListComponent, ChatComponent],
-    imports: [CommonModule],
+    imports: [CommonModule, ReactiveFormsModule],
 })
 export class ChatModule {}

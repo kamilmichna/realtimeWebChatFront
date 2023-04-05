@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UntilDestroy } from '@ngneat/until-destroy';
-import { firstValueFrom, Observable } from 'rxjs';
+import { firstValueFrom, map, Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 import { Chat, ChatService } from '../chat.service';
@@ -29,12 +29,21 @@ export class UsersListComponent implements OnInit {
     async openNewChatModal() {
         const inputOptions: any = {};
         const availableUsers = await firstValueFrom(
-            this.authService.getAllUsers()
+            this.authService
+                .getAllUsers()
+                .pipe(
+                    map((usernames) =>
+                        usernames.filter(
+                            (username) =>
+                                username !== this.authService.authData?.username
+                        )
+                    )
+                )
         );
         availableUsers.forEach((username) => {
             inputOptions[username] = username;
         });
-        console.log(availableUsers);
+
         const { value: userId } = await Swal.fire({
             title: 'Create new chat',
             input: 'select',
