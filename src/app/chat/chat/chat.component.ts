@@ -5,7 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Chat, ChatService, Message } from '../chat.service';
 import { FormBuilder } from '@angular/forms';
 import Swal from 'sweetalert2';
-import { firstValueFrom, Subject, switchMap } from 'rxjs';
+import { firstValueFrom, interval, merge, of, Subject, switchMap } from 'rxjs';
 
 @UntilDestroy()
 @Component({
@@ -27,9 +27,18 @@ export class ChatComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.loadMessages$
-            .pipe(switchMap(() => this.chatSvc.getMessagesInChat()))
+        merge(this.loadMessages$, interval(1000))
+            .pipe(
+                switchMap(() => {
+                    if (!this.selectedChat?.id) return of([]);
+                    console.log(this.selectedChat);
+                    return this.chatSvc.getMessagesInChat(
+                        this.selectedChat?.id
+                    );
+                })
+            )
             .subscribe((messages) => {
+                console.log(messages?.map((item) => item.content));
                 this.messages = messages;
             });
     }

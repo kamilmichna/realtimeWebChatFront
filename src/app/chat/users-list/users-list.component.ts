@@ -13,7 +13,7 @@ import { Chat, ChatService } from '../chat.service';
 })
 export class UsersListComponent implements OnInit {
     @Input() chats: Chat[] | null = null;
-    @Input() selectedChatId: string | null = null;
+    @Input() selectedChatId: number | null = null;
     @Output() chatClicked = new EventEmitter();
     constructor(
         private authService: AuthService,
@@ -22,7 +22,7 @@ export class UsersListComponent implements OnInit {
 
     ngOnInit(): void {}
 
-    onChatClicked(chatId: string) {
+    onChatClicked(chatId: number) {
         this.chatClicked.emit(chatId);
     }
 

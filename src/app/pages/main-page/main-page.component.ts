@@ -17,7 +17,7 @@ export class MainPageComponent implements OnInit {
 
     ngOnInit(): void {}
 
-    selectChat(chatId: string) {
+    selectChat(chatId: number) {
         this.chatSvc.selectedChatId$.next(chatId);
     }
 }

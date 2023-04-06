@@ -15,7 +15,7 @@ import { APP_CONF_TOKEN, ICONFIG } from '../config';
 import { AuthService } from '../services/auth.service';
 
 export interface Chat {
-    id: string;
+    id: number;
     user: any;
     lastMessage: any;
     lastMessageDate: Date;
@@ -34,7 +34,7 @@ export interface Message {
 })
 export class ChatService {
     allChats$: Observable<Chat[]> = this.getAllUserChats();
-    selectedChatId$ = new Subject<string>();
+    selectedChatId$ = new Subject<number>();
     selectedChat$ = combineLatest([this.allChats$, this.selectedChatId$]).pipe(
         map(([chats, selectedChatId]) => {
             if (!selectedChatId) {
@@ -75,19 +75,28 @@ export class ChatService {
         );
     }
 
-    getMessagesInChat(): Observable<Message[]> {
-        return this.http.get(this.config.BACKEND_PATH + '/messages').pipe(
-            map((messages) => {
-                return (messages as Array<any>)?.map((item) => {
-                    const { user: user, ...data } = item;
-                    return {
-                        ...data,
-                        sender: user.username,
-                    };
-                });
-            }),
-            tap((data) => console.log(data))
-        );
+    getMessagesInChat(chatId: number): Observable<Message[]> {
+        return this.http
+            .get(this.config.BACKEND_PATH + `/chats/${chatId}/messages`)
+            .pipe(
+                map((messages) => {
+                    return (messages as Array<any>)
+                        ?.map((item) => {
+                            const { user: user, ...data } = item;
+                            return {
+                                ...data,
+                                sender: user?.username || user,
+                            };
+                        })
+                        .sort((a, b) => {
+                            return (
+                                new Date(a.sendTime).getTime() -
+                                new Date(b.sendTime).getTime()
+                            );
+                        });
+                }),
+                tap((data) => console.log(data))
+            );
     }
 
     createNewChat(userId: string, secondUserId: string) {
@@ -112,6 +121,9 @@ export class ChatService {
     sendMessageToChat(messageContent: string) {
         return this.http.post(this.config.BACKEND_PATH + '/messages', {
             content: messageContent,
+            chat: {
+                id: 1,
+            },
         });
     }
 }
